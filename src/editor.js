@@ -13,16 +13,13 @@ const misbehave = new Misbehave(editor, {
   overwrite: false,
   softTabs: 2,
   replaceTab: true,
-  pairs: [['^'], ['(', ')']],
+  pairs: [],
   behaviour: '',
   oninput: (text) => {
     linesEl.innerText = text.split('\n').slice(1).map((x, i) => i + 1).join('\n');
     linesEl.innerText = linesEl.innerText.length === 0 ? '1' : linesEl.innerText;
 
     generateIssues(text);
-
-    /*editor.innerHTML = editor.innerHTML.replace(/(^|[;&])\s*([^256^;\s]+)/g, (_, before, actual) =>
-      _.replace(actual, `<span class="command-other">${escapeHTML(actual)}</span>`));*/
 
     //console.log(text);
 
