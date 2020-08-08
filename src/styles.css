@@ -1,6 +1,12 @@
+@import "driver.js/dist/driver.min.css";
+
 @import "./themes/midnight.css";
 @import "./themes/light.css";
 @import "./themes/dark.css";
+
+div#driver-highlighted-element-stage {
+  opacity: 0.5;
+}
 
 * {
   font-family: monospace;
@@ -158,36 +164,19 @@ button.activeTab {
   top: -4px;
 }
 
+#clearOnRunContainer > span {
+  vertical-align: top;
+  position: relative;
+  top: 6px;
+}
+
 input[type="checkbox"] {
-  -webkit-appearance: none;
-
-  background-color: transparent;
-  border: 2px solid var(--border-color);
-
   height: 22px;
   width: 22px;
 
-  border-radius: 0;
-
   display: inline-block;
 
-  margin-right: 10px;
-}
-
-input[type="checkbox"]:focus {
-  outline: none;
-}
-
-input[type="checkbox"]:hover, input[type="checkbox"]:checked:hover {
-  background-color: rgba(0, 255, 0, 0.6);
-}
-
-input[type="checkbox"]:checked {
-  background-color: rgba(0, 255, 0, 0.8);
-}
-
-input[type="checkbox"]:active {
-  background-color: rgba(0, 255, 0, 1);
+  margin-right: 3px;
 }
 
 /*#runningInfo::after {
@@ -372,6 +361,7 @@ select:hover {
 
 pre {
   z-index: 3;
+  background-color: var(--code-background);
 }
 
 #editor {
