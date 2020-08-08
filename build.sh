@@ -12,15 +12,15 @@ echo "> parcel build"
 
 npx parcel build --no-autoinstall src/index.html
 
-echo "> making build dir"
+#echo "> making build dir"
 
-rm -rf build
-mkdir build
+#rm -rf build
+#mkdir build
 
-echo "> making sw"
+#echo "> making sw"
 
-node sw-build.js
+#node sw-build.js
 
-echo "> building sw"
+#echo "> building sw"
 
-npx parcel build build/sw.js
+#npx parcel build build/sw.js
