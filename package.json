@@ -1,0 +1,35 @@
+{
+  "name": "eside",
+  "version": "5.0.0",
+  "description": "A web IDE for some esoteric programming languages.",
+  "main": "code.js",
+  "scripts": {
+    "dev": "parcel src/index.html",
+    "build": "sh build.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oojmed/evobox.git"
+  },
+  "keywords": [
+    "sandbox",
+    "physics"
+  ],
+  "author": "Oojmed",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/oojmed/evobox/issues"
+  },
+  "homepage": "https://github.com/oojmed/evobox#readme",
+  "dependencies": {
+    "parcel-bundler": "^1.12.4",
+    "workbox-build": "^5.1.3",
+    "workbox-expiration": "^5.1.3",
+    "workbox-precaching": "^5.1.3",
+    "workbox-routing": "^5.1.3",
+    "workbox-strategies": "^5.1.3"
+  },
+  "browserslist": [
+    "last 1 Chrome versions"
+  ]
+}

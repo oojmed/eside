@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Eside</title>
+
+    <link rel="stylesheet" href="styles.css">
+  </head>
+
+  <body data-theme="midnight">
+    <div id="mainContainer">
+      <div id="codeContainer">
+        <div id="interpretTopRow">
+          <span>
+            <button id="executeButton">Execute</button>
+            <button id="haltButton">Halt</button>
+            <button id="clearButton">Clear</button>
+          </span>
+
+          <span>
+            <input checked="true" type="checkbox" id="clearOnRunCheckbox"> <span>Clear on Run</span>
+          </span>
+        </div>
+
+        <div id="codeContainerMain">
+          <div id="codeLines">1</div>
+          <pre><code id="editor" contenteditable="true" spellcheck="false" autocapitalize="false" autocomplete="false"></code></pre>
+        </div>
+        <!--<code id="editor" contenteditable="true" spellcheck="false" autocapitalize="false" autocomplete="false"></code>-->
+        <!--<textarea id="code" spellcheck="false" autocapitalize="false" autocomplete="false"></textarea>-->
+      </div>
+
+      <div id="bottomContainer">
+        <div id="bottomTopRow">
+          <span>
+            <button class="activeTab" id="interpretTab">Interpret</button>
+            <button id="replTab">REPL</button>
+            <button id="issuesTab">Issues</button>
+          </span>
+
+          <span>
+            <div>
+              Theme&nbsp;<select id="themeDropdown">
+                <option>Midnight</option>
+                <option>Light</option>
+                <option>Dark</option>
+              </select>
+            </div>
+
+            <button id="aboutTab">About</button>
+          </span>
+        </div>
+
+        <div class="activeContainer" id="interpretContainer">
+          <code contenteditable="false" spellcheck="false" autocapitalize="false" autocomplete="false" id="runOutput"></code>
+        </div>
+
+        <div id="replContainer">
+          <code contenteditable="true" spellcheck="false" autocapitalize="false" autocomplete="false" id="replOutput">> </code>
+        </div>
+
+        <div id="issuesContainer">
+          <div id="issuesTopRow">
+            <button class="activeTab" id="issuesErrors">Errors</button>
+            <button class="activeTab" id="issuesWarnings">Warnings</button>
+            <button class="activeTab" id="issuesInfo">Info</button>
+          </div>
+
+          <div id="issuesWrapper">
+            <div>Not implemented yet, but will be in future updates!</div>
+            <!--<ul id="issues"></ul>-->
+          </div>
+        </div>
+
+        <div id="aboutContainer">
+          <div>
+            <div>Eside</div>
+<div id="eside-version"></div>
+          </div>
+
+          <div>A web IDE for some esoteric programming languages.</div>
+
+          <div>
+            <div>256.js</div>
+            <div id="256js-version"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/gh/orbitbot/misbehave/misbehave.js"></script>
+    <script async defer type="module" src="editor.js"></script>
+  </body>
+</html>

@@ -1,0 +1,25 @@
+body[data-theme="dark"] {
+  --code-background: #444;
+  --main-container-background: #555;
+  --secondary-background: #666;
+
+  --border-color: #222;
+
+  --text-color: #fff;
+
+  --line-color: rgb(228, 187, 53);
+
+  --syntax-command: #51A3A3;
+
+  --syntax-variable-name: #c24a84;
+  --syntax-variable-value: #e6c73d;
+
+  --syntax-jump-number: var(--syntax-variable-value);
+
+  --syntax-semicolon: #ccc;
+  --syntax-jump-bracket: var(--syntax-semicolon);
+
+  --command-other: orange;
+
+  --interactable-action-background: 255, 255, 255;
+}
