@@ -2,49 +2,120 @@ import Driver from 'driver.js';
 
 import * as _256js from './256js.js';
 
-const tour = new Driver();
-// Define the steps for introduction
+const tour = new Driver({
+  onHighlighted: (e) => {
+    switch (e.node.id) {
+      case 'interpretTab':
+        activeTab(interpretTab, interpretContainer);
+        break;
+      case 'replTab':
+        activeTab(replTab, replContainer);
+        break;
+      case 'issuesTab':
+        activeTab(issuesTab, issuesContainer);
+        break;
+      case 'aboutTab':
+        activeTab(aboutTab, aboutContainer);
+        break;
+    }
+  }
+});
+
 tour.defineSteps([
   {
     element: '#codeContainerMain',
     popover: {
       className: 'first-step-popover-class',
-      title: 'Code here',
-      description: 'Body of the popover',
+      title: 'Code',
+      description: 'Type your code in here',
       position: 'bottom-center'
     }
   },
   {
     element: '#executeButton',
     popover: {
-      title: 'Execute here',
-      description: 'Body of the popover',
+      title: 'Execute Button',
+      description: 'Executes your code',
       position: 'bottom-left',
-      offset: 12
+      offset: 14
     }
   },
   {
     element: '#clearButton',
     popover: {
-      title: 'Clear here',
-      description: 'Body of the popover',
-      position: 'bottom-left',
+      title: 'Clear Button',
+      description: 'Clears the interpret output',
+      position: 'bottom-center',
+      offset: 8
+    }
+  },
+  {
+    element: '#clearOnRunContainer',
+    popover: {
+      title: 'Clear on Run',
+      description: 'When enabled, automatically clears the interpret output on every execution',
+      position: 'bottom-right',
+      offset: -5
+    }
+  },
+  {
+    element: '#bottomContainer',
+    popover: {
+      title: 'Bottom Container',
+      description: 'Extra panels using tabs to assist your development',
+      position: 'top-center'
+    }
+  },
+  {
+    element: '#interpretTab',
+    popover: {
+      title: 'Interpret Tab',
+      description: 'The output of your code',
+      position: 'top-left',
+      offset: 20
+    }
+  },
+  {
+    element: '#replTab',
+    popover: {
+      title: 'REPL Tab',
+      description: 'A REPL enviroment to allow easy and quick running of small segments of code',
+      position: 'top-left',
       offset: 5
     }
   },
   {
-    element: '#clearButton',
+    element: '#issuesTab',
     popover: {
-      title: 'Clear here',
-      description: 'Body of the popover',
-      position: 'bottom-left',
-      offset: 5
+      title: 'Issues Tab',
+      description: 'Shows potential issues in your code (not implemented yet!)',
+      position: 'top-center',
+      offset: 8
     }
   },
+  {
+    element: '#aboutTab',
+    popover: {
+      title: 'About Tab',
+      description: 'Information about Eside',
+      position: 'top-right',
+      offset: -18
+    }
+  },
+  {
+    element: '#themeContainer',
+    popover: {
+      title: 'Theme',
+      description: 'Customise Eside by selecting one of many themes',
+      position: 'top-center',
+      offset: 4
+    }
+  }
 ]);
 
-// Start the introduction
-//tour.start();
+const tourButton = document.getElementById('tourButton');
+
+tourButton.onclick = () => { setTimeout(() => { tour.start(); }, 1); };
 
 const linesEl = document.getElementById('codeLines');
 const editor = document.getElementById('editor');
@@ -58,198 +129,22 @@ function resetCode() {
 
 resetCode();
 
-let version = '1.1.0';
+const version = '2.0.0-beta1';
 
 let issues;
 
-var getSections = function (elem, callback) {
-  var sel, range, tempRange, prefix = '', selected = '', suffix = '';
-  
-  if (document.activeElement !== elem) {
-    suffix = elem.textContent;
-  } else if (typeof window.getSelection !== 'undefined') {
-    sel = window.getSelection();
-    selected = sel.toString();
-    if (sel.rangeCount) {
-      range = sel.getRangeAt(0);
-    } else {
-      range = document.createRange();
-      range.collapse(true);
-    }
-    tempRange = document.createRange();
-    tempRange.selectNodeContents(elem);
-    tempRange.setEnd(range.startContainer, range.startOffset);
-    prefix = tempRange.toString();
-    
-    tempRange.selectNodeContents(elem);
-    tempRange.setStart(range.endContainer, range.endOffset);
-    suffix = tempRange.toString();
-    
-    tempRange.detach();
-  } else if ( (sel = document.selection) && sel.type != 'Control') {
-    range = sel.createRange();
-    tempRange = document.body.createTextRange();
-    selected = tempRange.text;
-    
-    tempRange.moveToElementText(elem);
-    tempRange.setEndPoint('EndToStart', range);
-    prefix = tempRange.text;
-    
-    tempRange.moveToElementText(elem);
-    tempRange.setEndPoint('StartToEnd', range);
-    suffix = tempRange.text;
-  }
-  
-  if (callback)
-  { return callback({ prefix: prefix, selected: selected, suffix: suffix }, sel) }
-  else
-  { return { prefix: prefix, selected: selected, suffix: suffix } }
-};
-
-var getTextNodesIn = function (node) {
-  var textNodes = [];
-  if (node.nodeType == 3) {
-    textNodes.push(node);
-  } else {
-    var children = node.childNodes;
-    for (var i = 0, len = children.length; i < len; ++i) {
-      textNodes.push.apply(textNodes, getTextNodesIn(children[i]));
-    }
-  }
-  return textNodes
-};
-
-var setSelection = function (elem, start, end) {
-  if (document.createRange && window.getSelection) {
-    var range = document.createRange();
-    range.selectNodeContents(elem);
-    var textNodes = getTextNodesIn(elem);
-    var foundStart = false;
-    var charCount = 0, endCharCount;
-    
-    for (var i = 0, textNode; textNode = textNodes[i++]; ) {
-      endCharCount = charCount + textNode.length;
-      if (!foundStart && start >= charCount && (start < endCharCount || (start == endCharCount && i <= textNodes.length))) {
-        range.setStart(textNode, start - charCount);
-        foundStart = true;
-      }
-      if (foundStart && end <= endCharCount) {
-        range.setEnd(textNode, end - charCount);
-        break
-      }
-      charCount = endCharCount;
-    }
-    
-    var sel = window.getSelection();
-    sel.removeAllRanges();
-    sel.addRange(range);
-  } else if (document.selection && document.body.createTextRange) {
-    var textRange = document.body.createTextRange();
-    textRange.moveToElementText(elem);
-    textRange.collapse(true);
-    textRange.moveEnd('character', end);
-    textRange.moveStart('character', start);
-    textRange.select();
-  }
-};
-
-window.getSections = getSections;
-
-editor.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') {
-    let text = editor.innerHTML;
-    let offset = window.getSelection().anchorOffset;
-    console.log(JSON.stringify([offset, text, text.substring(0, offset) + '\n' + text.substring(offset)]));
-    editor.innerHTML = text.substring(0, offset) + '\n' + text.substring(offset);
-    console.log(editor.innerHTML);
-
-    onInput(editor.textContent);
-
-    // Move cursor / caret forward
-    let range = document.createRange();
-    let sel = window.getSelection();
-
-    range.setStart(editor.childNodes[0], offset + 1);
-    range.setEnd(editor.childNodes[0], offset + 1);
-
-    range.collapse(true);
-
-    sel.removeAllRanges();
-    sel.addRange(range);
-
-    // Prevent default browser behavour
-    e.preventDefault();
-    return false;
-  }
-});
+editor.onkeypress = () => { setTimeout(() => { onInput(editor.innerHTML); }, 0); }; // setTimeout as if you don't wait the new character hasn't been added to the innerHTML yet
 
 function onInput(text) {
-  let linesSplit = text.split('\n');
-  if (isChrome) linesSplit = linesSplit.slice(1);
+  text = text.replace(/<br>/g, '\n');
+
+  let linesSplit = text.split('\n')
+  linesSplit = linesSplit.length > 1 ? linesSplit.slice(1) : linesSplit;
 
   linesEl.innerText = linesSplit.map((x, i) => i + 1).join('\n');
-  //linesEl.innerText = linesEl.innerText.length === 0 ? '1' : linesEl.innerText;
   
   generateIssues(text);
-  
-  //console.log(text);
-  
-  editor.innerHTML = editor.innerHTML.replace(/\b5([^;\n])([^^;\n]+)?(\n*$|[;^])/g, (_, name, value, semi) => `<span class="command-5">5</span><span class="variable-name">${escapeHTML(name)}</span>` + (value !== undefined ? `<span class="variable-value">${escapeHTML(value)}</span>` : '') + (semi === ';' ? '<span class="semicolon">;</span>' : semi));
-  
-  editor.innerHTML = editor.innerHTML.replace(/\b2(\n*$|[;^])/g, (_, semi) => `<span class="command-2">2</span>${semi === ';' ? '<span class="semicolon">;</span>' : semi}`);
-  
-  let i = 0;
-  editor.innerHTML = editor.innerHTML.replace(/\b6(\n*$|[;^])/g, (_, semi) => {
-    i++;
-    
-    return `<span six-number="${i}" class="lone-command-6 command-6">6</span>${semi === ';' ? '<span class="semicolon">;</span>' : semi}`;
-  });
-  
-  editor.innerHTML = editor.innerHTML.replace(/\b6([0-9]+)(\n*$|[;^])/g, (_, num, semi) => `<span class="command-6-jump-container"><span class="command-6">6</span><span class="jump-number">${num}</span>${semi === ';' ? '<span class="semicolon">;</span>' : semi}`);
-  
-  [...document.getElementsByClassName('arrowContainer')].forEach((x) => document.body.removeChild(x));
-  
-  for (let a of document.getElementsByClassName('jump-number')) {
-    let b = [...document.getElementsByClassName('lone-command-6')].find((x) => x.getAttribute('six-number') === a.textContent);
-    
-    if (!b || a.offsetTop === b.offsetTop) continue;
-    
-    let thisRand = Math.floor(Math.random() * 1000);
-    let num = parseInt(a.textContent);
-    
-    let arrowSvg = document.createElement('svg');
-    document.body.prepend(arrowSvg);
-    
-    let fillColor = `rgb(${num % 6 * 40}, ${num % 3 * 80}, ${num % 9 * 40})`;
-    arrowSvg.outerHTML = `<svg class='arrowContainer' xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" opacity="0.3">
-    <defs>
-    <marker id="arrowhead-${thisRand}" viewBox="0 0 10 10" refX="3" refY="5"
-    markerWidth="6" markerHeight="6" fill="${fillColor}" orient="auto">
-    <path d="M 0 0 L 10 5 L 0 10 z" />
-    </marker>
-    </defs>
-    <g fill="none" stroke="${fillColor}" stroke-width="2" marker-end="url(#arrowhead-${thisRand})">
-    <path id="arrowLeft-${thisRand}"/>
-    </g>
-    </svg>`;
-    
-    drawConnector(b, a.parentElement, document.getElementById(`arrowLeft-${thisRand}`));
-  }
-  
-  //editor.innerHTML = editor.innerHTML.replace(/[^>]?;[^<]?/g, (_) => _.replace(';', '<span class="semicolon">;</span>'));
 }
-
-const misbehave = new Misbehave(editor, {
-  autoIndent: false,
-  autoOpen: true,
-  autoStrip: true,
-  overwrite: false,
-  softTabs: 2,
-  replaceTab: true,
-  pairs: [],
-  behaviour: '',
-  oninput: onInput
-});
 
 function escapeHTML(html){
   let text = document.createTextNode(html);
@@ -269,34 +164,6 @@ editor.onmousewheel = () => {
 editor.onscroll = () => {
   setLinesScroll();
   setTimeout(setLinesScroll, 300);
-};
-
-var drawConnector = function(divA, divB, arrowRight) {
-  let aRight = divA.offsetLeft + divA.offsetWidth;
-  let bRight = divB.offsetLeft + divB.offsetWidth;
-  
-  let largestWidth = Math.max(aRight, bRight);
-  //console.log(divA.offsetWidth, divB.offsetWidth, largestWidth);
-  
-  let left = largestWidth + 10;
-  
-  let posnARight = {
-    x: left + 8,
-    y: divA.offsetTop  + divA.offsetHeight / 2    
-  };
-  let posnBRight = {
-    x: left,
-    y: divB.offsetTop  + divB.offsetHeight / 2
-  };
-  //arrowLeft.setAttribute("d", dStrLeft);
-  let dStrRight =
-  "M" +
-  (posnBRight.x      ) + "," + (posnBRight.y) + " " +
-  "C" +
-  (posnBRight.x + 100) + "," + (posnBRight.y) + " " +
-  (posnARight.x + 100) + "," + (posnARight.y) + " " +
-  (posnARight.x      ) + "," + (posnARight.y);
-  arrowRight.setAttribute("d", dStrRight);
 };
 
 let inputBuffer = '';
@@ -511,14 +378,6 @@ esideVersionEl.textContent = `v${version}`;
 jsVersionEl.textContent = `v${_256js.version}`;
 
 aboutTab.onclick = () => {
-  /*  aboutContainer.textContent = `256web
-  An online IDE and code editor for the 256 escentric programming language
-  
-  256web v${version}
-  256.js v${_256js.version}`;*/
-  
-  
-  
   activeTab(aboutTab, aboutContainer);
 };
 
@@ -576,3 +435,141 @@ const themeDropdown = document.getElementById('themeDropdown');
 themeDropdown.onchange = () => {
   document.body.setAttribute('data-theme', themeDropdown.value.toLowerCase());
 };
+
+let x, i, j, l, ll, selElmnt, a, b, c;
+/* Look for any elements with the class "custom-select": */
+x = document.getElementsByClassName("custom-select");
+l = x.length;
+for (i = 0; i < l; i++) {
+  selElmnt = x[i].getElementsByTagName("select")[0];
+  ll = selElmnt.length;
+  /* For each element, create a new DIV that will act as the selected item: */
+  a = document.createElement("DIV");
+  a.setAttribute("class", "select-selected");
+  a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+  x[i].appendChild(a);
+  /* For each element, create a new DIV that will contain the option list: */
+  b = document.createElement("DIV");
+  b.setAttribute("class", "select-items select-hide");
+  for (j = 0; j < ll; j++) {
+    /* For each option in the original select element,
+    create a new DIV that will act as an option item: */
+    c = document.createElement("DIV");
+    c.innerHTML = selElmnt.options[j].innerHTML;
+    c.addEventListener('mouseover', function() {
+      document.body.setAttribute('data-theme', this.innerHTML.toLowerCase());
+    });
+
+    c.addEventListener("click", function(e) {
+        /* When an item is clicked, update the original select box,
+        and the selected item: */
+        document.body.setAttribute('data-theme', this.innerHTML.toLowerCase());
+
+        let y, i, k, s, h, sl, yl;
+        s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+        sl = s.length;
+        h = this.parentNode.previousSibling;
+        for (i = 0; i < sl; i++) {
+          if (s.options[i].innerHTML == this.innerHTML) {
+            s.selectedIndex = i;
+            h.innerHTML = this.innerHTML;
+            y = this.parentNode.getElementsByClassName("same-as-selected");
+            yl = y.length;
+            for (k = 0; k < yl; k++) {
+              y[k].removeAttribute("class");
+            }
+            this.setAttribute("class", "same-as-selected");
+            break;
+          }
+        }
+
+        h.click();
+    });
+    if (j === 0) c.className = 'same-as-selected';
+    b.appendChild(c);
+  }
+  x[i].appendChild(b);
+  a.addEventListener("click", function(e) {
+    /* When the select box is clicked, close any other select boxes,
+    and open/close the current select box: */
+    e.stopPropagation();
+    closeAllSelect(this);
+    this.nextSibling.classList.toggle("select-hide");
+    this.classList.toggle("select-arrow-active");
+  });
+}
+
+function closeAllSelect(elmnt) {
+  /* A function that will close all select boxes in the document,
+  except the current select box: */
+  var x, y, i, xl, yl, arrNo = [];
+  x = document.getElementsByClassName("select-items");
+  y = document.getElementsByClassName("select-selected");
+  xl = x.length;
+  yl = y.length;
+  for (i = 0; i < yl; i++) {
+    if (elmnt == y[i]) {
+      arrNo.push(i)
+    } else {
+      y[i].classList.remove("select-arrow-active");
+    }
+  }
+  for (i = 0; i < xl; i++) {
+    if (arrNo.indexOf(i)) {
+      x[i].classList.add("select-hide");
+    }
+  }
+}
+
+/* If the user clicks anywhere outside the select box,
+then close all select boxes: */
+document.addEventListener("click", closeAllSelect);
+
+// Allow stretching of bottom container
+function makeResizableDiv(div) {
+  for (let i = 0;i < resizers.length; i++) {
+    const currentResizer = resizers[i];
+    currentResizer.addEventListener('mousedown', function(e) {
+      e.preventDefault()
+      window.addEventListener('mousemove', resize)
+      window.addEventListener('mouseup', stopResize)
+    })
+    
+    
+  }
+}
+
+const bottomContainer = document.getElementById('bottomContainer');
+const codeContainer = document.getElementById('codeContainer');
+
+const beforeHeight = 10;
+
+bottomContainer.onmousedown = (e) => {
+  if (e.clientY - bottomContainer.getBoundingClientRect().top < beforeHeight) {
+    console.log('lol');
+
+    e.preventDefault();
+
+    window.addEventListener('mousemove', resize);
+    window.addEventListener('mouseup', stopResize);
+  }
+};
+
+function resize(e) {
+  let height = window.innerHeight - e.pageY;
+  bottomContainer.style.height = `${height + 10}px`;
+  codeContainer.style.flex = `0 0 ${window.innerHeight - height}px`;
+  codeContainer.style.height = `${window.innerHeight - height}px`;
+
+  containers.forEach((x) => {
+    //x.style.flex = `0 0 ${height - 36}px`;
+    //x.style.height = `${height - 36}px`;
+    //x.style.flexGrow = '0';
+  })
+}
+
+function stopResize() {
+  window.removeEventListener('mousemove', resize);
+}
+
+//bottomContainer.

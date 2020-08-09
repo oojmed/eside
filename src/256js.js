@@ -1,4 +1,4 @@
-export let version = '1.1.0';
+export let version = '1.1.1';
 
 let internalHaltChecks = {};
 
@@ -86,13 +86,10 @@ function getIfPos(lex, variables, indexStart, condition) {
     if (variables[c] !== undefined) condition = condition.replace(c, variables[c]);
   }
 
-  //console.log(lex.filter((x, i) => i > indexStart && x[0] === '^' && typeof x[1][0] !== 'number'));
-
   return lex.indexOf(lex.filter((x, i) => i > indexStart && x[0] === '^' && typeof x[1][0] !== true)[eval(condition) === true ? 0 : 1]) - 1;
 }
 
 function getLoopPos(lex, loopNum) {
-  //console.log(lex.filter((x) => x[0] === '6' && x[1] === false));
   return lex.indexOf(lex.filter((x) => x[0] === '6' && x[1] === false)[loopNum - 1]);
 }
 
@@ -135,7 +132,7 @@ export function lexer(code) { // *Seems* simple enough - each command is seperat
 function lexCommand(x) {
   let command = x[0];
 
-  if (!cmds.includes(command)) {
+  if (!cmds.includes(command) || (command === '2' && x.length > 1)) {
     if (x.length === 3) {
       if (x.substr(1, 2) === '++') {
         return ['++', command];
@@ -169,13 +166,3 @@ function lexCommand(x) {
 
   return [command, other];
 }
-
-/*async function wrapper(code) {
-  //let start = performance.now();
-
-  await interpret(code);
-
-  //console.log('\n\nInterpreted - took', `${(performance.now() - start).toFixed(2)}ms`);
-
-  //rl.close();
-}*/

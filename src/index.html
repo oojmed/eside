@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
   <head>
     <title>Eside</title>
@@ -20,6 +20,8 @@
             <span id="clearOnRunContainer">
               <input checked="true" type="checkbox" id="clearOnRunCheckbox"> <span>Clear on Run</span>
             </span>
+
+            <button id="tourButton">Tour</button>
           </span>
         </div>
 
@@ -41,15 +43,17 @@
           </span>
 
           <span>
-            <div>
-              Theme&nbsp;<select id="themeDropdown">
-                <option>Midnight</option>
-                <option>Light</option>
-                <option>Dark</option>
-              </select>
+            <div id="themeContainer">
+              Theme&nbsp;<div class="custom-select">
+                <select id="themeDropdown">
+                  <option>Midnight</option>
+                  <option>Dark</option>
+                  <option>Light</option>
+                </select>
+              </div>
             </div>
 
-            <button id="aboutTab">About</button>
+              <button id="aboutTab">About</button>
           </span>
         </div>
 
@@ -75,22 +79,41 @@
         </div>
 
         <div id="aboutContainer">
-          <div>
-            <div>Eside</div>
-<div id="eside-version"></div>
+          <div id="aboutTriple">
+            <div>
+              <h2>Eside</h2>
+              <div id="eside-version"></div>
+            </div>
+
+            <div>A web IDE for some esoteric programming languages.</div>
+
+            <div>
+              <h3>256.js</h3>
+              <div id="256js-version"></div>
+            </div>
           </div>
 
-          <div>A web IDE for some esoteric programming languages.</div>
+          <div id="changelog">
+            <h2>Changelog</h2>
 
-          <div>
-            <div>256.js</div>
-            <div id="256js-version"></div>
+            <h3>v2.0.0-beta1</h3>
+            <ul>
+              <li>The top of the bottom container is now stretchable so if you drag the top, it will become higher / lower</li>
+              <li>Further customised the theme dropdown</li>
+              <li>Themes are now previewed when hovered over in the theme dropdown</li>
+              <li>Added changelog to about panel</li>
+              <li>Browser default checkbox now used instead of customised</li>
+              <li>Tweaked styling of about panel</li>
+              <li>Tweaked styling of theme container</li>
+              <li>Button's text can no longer be highlighted by user</li>
+              <li>Updated 256.js to v1.1.1</li>
+              <li>Removed syntax highlighting and (other custom code input handlers) to increase compatibility</li>
+            </ul>
           </div>
         </div>
       </div>
     </div>
 
-    <script src="misbehave.js"></script>
     <script async defer type="module" src="editor.js"></script>
   </body>
 </html>
