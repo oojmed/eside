@@ -244,10 +244,6 @@ button.activeTab {
   right: 1px;
 }
 
-#themeContainer {
-  margin-right: 22px;
-}
-
 #interpretTopRow > :last-child {
   float: right;
   height: calc(100% + 10px);
@@ -261,8 +257,8 @@ button.activeTab {
   top: -4px;
 }
 
-#clearOnRunContainer {
-  margin-right: 20px;
+#interpretTopRow > :last-child > :not(:last-child) {
+  margin-right: 25px;
 }
 
 #clearOnRunContainer > span {
@@ -348,6 +344,11 @@ select {
 
 option {
   background-color: var(--code-background);
+}
+
+option[disabled="true"] {
+  font-weight: bold;
+  color: var(--accent-color);
 }
 
 select:hover {
