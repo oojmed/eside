@@ -1,0 +1,14 @@
+body[data-theme="twilight"] {
+  --code-background: #19242f;
+  --text-color: #F8F8F2;
+  
+  --border-color: #19242f;
+  --secondary-background: #2b3e50;
+  --main-container-background: #243443;
+
+  --line-color: #8D8D8A;
+
+  --interactable-action-background: 200, 200, 200;
+
+  --accent-color: #5c98cd;
+}

@@ -2,7 +2,7 @@ import Driver from 'driver.js';
 
 import * as _256js from './256js.js';
 
-const version = '2.0.0';
+const version = '2.1.0';
 
 const tour = new Driver({
   onHighlighted: (e) => {
@@ -25,9 +25,17 @@ const tour = new Driver({
 
 tour.defineSteps([
   {
-    element: '#codeContainerMain',
+    element: '#interpretTopRow',
     popover: {
       className: 'first-step-popover-class',
+      title: 'Welcome to Eside',
+      description: 'Eside is an online, web-based IDE for some esoteric programming languages.',
+      position: 'bottom-center'
+    }
+  },
+  {
+    element: '#codeContainerMain',
+    popover: {
       title: 'Code',
       description: 'Type your code in here',
       position: 'bottom-center'
@@ -65,8 +73,17 @@ tour.defineSteps([
     popover: {
       title: 'Clear on Run',
       description: 'When enabled, automatically clears the interpret output on every execution',
+      position: 'bottom-center',
+      offset: 4
+    }
+  },
+  {
+    element: '#tourButton',
+    popover: {
+      title: 'Tour Button',
+      description: 'Shows you this tour',
       position: 'bottom-right',
-      offset: -5
+      offset: -10
     }
   },
   {

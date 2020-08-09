@@ -4,6 +4,7 @@
 @import "./themes/monokai.css";
 @import "./themes/light.css";
 @import "./themes/dark.css";
+@import "./themes/twilight.css";
 
 div#driver-highlighted-element-stage {
   opacity: 0.5;
@@ -34,6 +35,10 @@ div#driver-popover-item .driver-popover-footer button {
   border: 2px solid var(--border-color);
 
   text-shadow: none;
+}
+
+div#driver-popover-item .driver-popover-tip.top {
+  border-color: transparent transparent var(--border-color);
 }
 
 .driver-close-btn {
@@ -190,6 +195,19 @@ ul {
 
 #clearButton, #tourButton {
   border: 2px solid var(--border-color);
+}
+
+#tourButton {
+  border-color: var(--accent-color);
+  background-color: rgba(var(--interactable-action-background), 0.05);
+}
+
+#tourButton:hover {
+  background-color: rgba(var(--interactable-action-background), 0.15);
+}
+
+#tourButton:active {
+  background-color: rgba(var(--interactable-action-background), 0.25);
 }
 
 button.activeTab {

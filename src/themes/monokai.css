@@ -9,4 +9,6 @@ body[data-theme="monokai"] {
   --line-color: #8D8D8A;
 
   --interactable-action-background: 200, 200, 200;
+
+  --accent-color: #5c98cd;
 }
