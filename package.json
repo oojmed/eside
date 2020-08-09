@@ -1,6 +1,6 @@
 {
   "name": "eside",
-  "version": "2.0.0-beta2",
+  "version": "2.0.0-beta3",
   "description": "A web IDE for some esoteric programming languages.",
   "main": "code.js",
   "scripts": {
