@@ -9,17 +9,5 @@ body[data-theme="midnight"] {
 
   --line-color: rgb(228, 187, 53);
 
-  --syntax-command: #51A3A3;
-
-  --syntax-variable-name: #75485E;
-  --syntax-variable-value: #DFCC74;
-
-  --syntax-jump-number: var(--syntax-variable-value);
-
-  --syntax-semicolon: #999;
-  --syntax-jump-bracket: var(--syntax-semicolon);
-
-  --command-other: orange;
-
   --interactable-action-background: 255, 255, 255;
 }

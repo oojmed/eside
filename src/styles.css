@@ -1,6 +1,7 @@
 @import "driver.js/dist/driver.min.css";
 
 @import "./themes/midnight.css";
+@import "./themes/monokai.css";
 @import "./themes/light.css";
 @import "./themes/dark.css";
 

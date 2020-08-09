@@ -1,0 +1,12 @@
+body[data-theme="monokai"] {
+  --code-background: #272822;
+  --text-color: #F8F8F2;
+  
+  --border-color: #1B1B1B;
+  --secondary-background: #222;
+  --main-container-background: #1f1f1f;
+
+  --line-color: #8D8D8A;
+
+  --interactable-action-background: 200, 200, 200;
+}

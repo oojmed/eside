@@ -2,7 +2,7 @@ import Driver from 'driver.js';
 
 import * as _256js from './256js.js';
 
-const version = '2.0.0-beta4';
+const version = '2.0.0';
 
 const tour = new Driver({
   onHighlighted: (e) => {
