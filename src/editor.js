@@ -129,7 +129,7 @@ function resetCode() {
 
 resetCode();
 
-const version = '2.0.0-beta1';
+const version = '2.0.0-beta2';
 
 let issues;
 
@@ -546,8 +546,6 @@ const beforeHeight = 10;
 
 bottomContainer.onmousedown = (e) => {
   if (e.clientY - bottomContainer.getBoundingClientRect().top < beforeHeight) {
-    console.log('lol');
-
     e.preventDefault();
 
     window.addEventListener('mousemove', resize);
