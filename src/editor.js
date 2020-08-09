@@ -2,7 +2,7 @@ import Driver from 'driver.js';
 
 import * as _256js from './256js.js';
 
-const version = '2.0.0-beta3';
+const version = '2.0.0-beta4';
 
 const tour = new Driver({
   onHighlighted: (e) => {
@@ -49,6 +49,15 @@ tour.defineSteps([
       description: 'Clears the interpret output',
       position: 'bottom-center',
       offset: 8
+    }
+  },
+  {
+    element: '#themeContainer',
+    popover: {
+      title: 'Theme',
+      description: 'Customise Eside by selecting one of many themes',
+      position: 'bottom-center',
+      offset: 4
     }
   },
   {
@@ -102,15 +111,6 @@ tour.defineSteps([
       description: 'Information about Eside',
       position: 'top-right',
       offset: -18
-    }
-  },
-  {
-    element: '#themeContainer',
-    popover: {
-      title: 'Theme',
-      description: 'Customise Eside by selecting one of many themes',
-      position: 'top-center',
-      offset: 4
     }
   }
 ]);
