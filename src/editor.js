@@ -2,7 +2,7 @@ import Driver from 'driver.js';
 
 import * as _256js from './256js.js';
 
-const version = '2.2';
+const version = '2.3';
 
 const tour = new Driver({
   onHighlighted: (e) => {
@@ -497,5 +497,3 @@ function resize(e) {
 function stopResize() {
   window.removeEventListener('mousemove', resize);
 }
-
-//bottomContainer.

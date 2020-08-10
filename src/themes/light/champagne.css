@@ -1,0 +1,14 @@
+body[data-theme="champagne"] {
+  --code-background: #f1ddcf;
+  --text-color: #000000;
+  
+  --border-color: #E4007C;
+  --secondary-background: #f2bdcd;
+  --main-container-background: #ff91af;
+
+  --line-color: #222222;
+
+  --interactable-action-background: 100, 20, 60;
+
+  --accent-color: #ff1493;
+}

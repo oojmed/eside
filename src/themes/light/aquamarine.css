@@ -1,0 +1,14 @@
+body[data-theme="aquamarine"] {
+  --code-background: #5c98cd;
+  --text-color: #F8F8F2;
+  
+  --border-color: #0d4a80;
+  --secondary-background: #306b9f;
+  --main-container-background: #377ab5;
+
+  --line-color: #e6cfcf;
+
+  --interactable-action-background: 200, 200, 200;
+
+  --accent-color: #2f6191;
+}

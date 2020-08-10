@@ -1,10 +1,13 @@
 @import "driver.js/dist/driver.min.css";
 
-@import "./themes/midnight.css";
-@import "./themes/monokai.css";
-@import "./themes/light.css";
-@import "./themes/dark.css";
-@import "./themes/twilight.css";
+@import "./themes/dark/midnight.css";
+@import "./themes/dark/monokai.css";
+@import "./themes/dark/dark.css";
+@import "./themes/dark/twilight.css";
+
+@import "./themes/light/light.css";
+@import "./themes/light/aquamarine.css";
+@import "./themes/light/champagne.css";
 
 div#driver-highlighted-element-stage {
   opacity: 0.5;
@@ -335,7 +338,7 @@ select {
   padding: 1px;
 
   height: 35px;
-  width: 100px;
+  width: 110px;
 
   display: inline-block;
 
