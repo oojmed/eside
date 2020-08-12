@@ -1,0 +1,37 @@
+body[data-theme="high contrast"] {
+  --code-background: #000;
+  --main-container-background: var(--code-background);
+  --secondary-background: var(--code-background);
+
+  --border-color: rgb(255, 200, 0);
+
+  --text-color: rgb(255, 255, 255);
+
+  --line-color: var(--text-color);
+
+  --interactable-action-background: 255, 255, 255;
+
+  --accent-color: #5c98cd;
+}
+
+body[data-theme="high contrast"] #interpretTopRow {
+  border-bottom: 1px solid var(--accent-color);
+}
+
+body[data-theme="high contrast"] #bottomTopRow {
+  border-top: 1px solid var(--accent-color);
+  border-bottom: 1px solid var(--accent-color);
+}
+
+body[data-theme="high contrast"] #replTab, body[data-theme="high contrast"] #issuesTab, body[data-theme="high contrast"] #aboutTab {
+  border-left: 1px solid var(--accent-color);
+}
+
+body[data-theme="high contrast"] #interpretTab, body[data-theme="high contrast"] #replTab, body[data-theme="high contrast"] #issuesTab {
+  border-right: 1px solid var(--accent-color);
+}
+
+body[data-theme="high contrast"] #bottomTopRow button.activeTab { 
+  background-color: var(--border-color);
+  color: var(--code-background);
+}

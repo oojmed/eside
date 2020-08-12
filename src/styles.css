@@ -1,5 +1,7 @@
 @import "driver.js/dist/driver.min.css";
 
+@import "./themes/highcontrast/highcontrast.css";
+
 @import "./themes/dark/midnight.css";
 @import "./themes/dark/monokai.css";
 @import "./themes/dark/dark.css";
@@ -183,8 +185,6 @@ ul {
 
   font-size: 14px;
 
-  border-bottom: none;
-
   background-color: var(--main-container-background);
 }
 
@@ -319,11 +319,11 @@ button {
   user-select: none;
 }
 
-button:hover, button.activeTab:hover {
+button:hover, #bottomTopRow button.activeTab:hover {
   background-color: rgba(var(--interactable-action-background), 0.1);
 }
 
-button:active, button.activeTab:active {
+button:active, #bottomTopRow button.activeTab:active {
   background-color: rgba(var(--interactable-action-background), 0.2);
 }
 
